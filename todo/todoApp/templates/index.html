@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    
+    <section class="vh-100" style="background-color: #eee;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-9 col-xl-10">
+              <div class="card rounded-3">
+                <div class="card-body p-5">
+      
+                  <h4 class="text-center my-3 pb-3">To-Do List</h4>
+      
+                  <form  action="{% url 'todo'%}" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                    <div class="col-12 mb-4">
+                      <div class="form-outline">
+                        {{form.task}}
+                      </div>
+                    </div>
+      
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary btn-block">Kaydet</button>
+                    </div>
+
+                  </form>
+      
+                  <table class="table mb-4">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sıra</th>
+                        <th scope="col">Görev</th>
+                        <th scope="col">Durum</th>
+                        <th scope="col">Eylemler</th>
+                      </tr>
+                    </thead>
+
+
+                    <tbody>
+                      {% for task in tasks %}
+                      <tr>
+                        <th scope="row">{{ task.id }}</th>
+                        <td>{{ task.task }}</td>
+                        <td>{{ task.status }}</td>
+                        <td>
+                          <form action="{% url 'delTask' task.id %}">
+                            <button type="submit" class="btn btn-danger btn-sm col-10">Sil</button>
+                          </form>
+                          
+                          <!-- URL uzerinden task.id parametresi tasinabilir. -->
+                          <form action="{% url 'completeTask' task.id %}">
+                            <button type="submit" class="btn btn-success btn-sm ms-1 col-10 mt-2">Tamamlandı</button>
+                          </form>
+                          </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+
+</body>
+</html>
